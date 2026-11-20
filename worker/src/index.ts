@@ -3,7 +3,7 @@ import { LoginAutomation } from './automation'
 import { updateAccountStatus, getAccountsByStatusAndDay, supabase, getSettings } from './db'
 
 // Always spread logins over 3 hours
-const THREE_HOURS_MS = 3 * 60 * 60 * 1000
+const TWO_HOURS_MS = 2 * 60 * 60 * 1000
 
 async function markWorkflowRun(day: string, status: 'completed' | 'failed') {
   const { error } = await supabase
@@ -47,7 +47,7 @@ async function processPendingTasks() {
   // Always assign a random offset (0 to 3 hours) for every run
   const accountsWithOffset = pendingAccounts.map(account => ({
     ...account,
-    offset: Math.floor(Math.random() * THREE_HOURS_MS)
+    offset: Math.floor(Math.random() * TWO_HOURS_MS)
   }))
 
   // Sort by offset (ascending)
